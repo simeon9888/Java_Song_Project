@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author learn
- */
+
 public class Main_Window extends javax.swing.JFrame {
 
     /**
