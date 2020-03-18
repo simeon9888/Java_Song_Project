@@ -7,9 +7,7 @@
 
 public class Main_Window extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main_Window
-     */
+    
     public Main_Window() {
         initComponents();
     }
