@@ -207,6 +207,7 @@ public class Main_Window extends javax.swing.JFrame {
         });
     }
     
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton change_btn;
     private javax.swing.JButton clear_all_btn;
