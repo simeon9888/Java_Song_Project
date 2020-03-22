@@ -174,7 +174,6 @@ public class Main_Window extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     
     /**
      * @param args the command line arguments
