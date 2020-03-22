@@ -1,3 +1,10 @@
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,7 +18,22 @@ public class Main_Window extends javax.swing.JFrame {
     public Main_Window() {
         initComponents();
     }
-
+    
+    String Image_Directory = null;
+    int position = 0;
+    
+    public Connection get_Connection(){
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/song_db_1", "root", "");           
+            
+            return connection;
+        } catch (SQLException ex) {
+            Logger.getLogger(Main_Window.class.getName()).log(Level.SEVERE, null, ex);
+                        
+            return null;
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
