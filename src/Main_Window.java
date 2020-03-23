@@ -96,6 +96,11 @@ public class Main_Window extends javax.swing.JFrame {
         jScrollPane2.setViewportView(song_Table);
 
         clear_all_btn.setText("Clear All");
+        clear_all_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clear_all_btnActionPerformed(evt);
+            }
+        });
 
         insert_btn.setText("Insert");
 
@@ -201,6 +206,13 @@ public class Main_Window extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void clear_all_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_all_btnActionPerformed
+        name_field.setText("");
+        timing_field.setText("");
+        singer_field.setText("");
+        genre_field.setText("");
+    }//GEN-LAST:event_clear_all_btnActionPerformed
 
     
     /**
