@@ -1,9 +1,12 @@
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -67,6 +70,7 @@ public class Main_Window extends javax.swing.JFrame {
         label_image = new javax.swing.JLabel();
         upload_image_btn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        success_or_not = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +118,8 @@ public class Main_Window extends javax.swing.JFrame {
 
         jButton1.setText("SEARCH");
 
+        success_or_not.setText("jLabel6");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,16 +146,20 @@ public class Main_Window extends javax.swing.JFrame {
                                     .addComponent(label_image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(upload_image_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(timing_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(name_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(singer_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(genre_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(16, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(timing_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(name_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(singer_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(genre_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(success_or_not)
+                        .addGap(224, 224, 224))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +167,8 @@ public class Main_Window extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(name_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(name_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(success_or_not))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,6 +226,47 @@ public class Main_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_clear_all_btnActionPerformed
 
     
+    private void insert_btnActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        String _name = name_field.getText();
+        String _timing = timing_field.getText();
+        String _singer_field = singer_field.getText();
+        String _genre_field = genre_field.getText();
+        
+        if(name_field.getText().equals("") || timing_field.getText().equals("") || singer_field.getText().equals("") || genre_field.getText().equals("") )
+        {
+            showMessageDialog(null, "Please fill all of the text boxes! ", "Error", ERROR_MESSAGE);
+        }else
+        {
+            if(AddingInfoIntoDB(_name, _timing, _singer_field, _genre_field)) 
+        {
+            success_or_not.setText("Successfully Added");
+        }else
+        {
+            success_or_not.setText("Something Went Wrong");
+        }
+      }
+    }                                          
+
+    private boolean AddingInfoIntoDB(String NM, String TI, String SF, String GF)
+    {       
+        String qry = "INSERT INTO `songs`(`id`, `name`, `timing`, `singer`, `genre`) VALUES (?,?,?,?,?)";
+        
+        try {
+            PreparedStatement PpdSt_1 = get_Connection().prepareStatement(qry);
+            
+            PpdSt_1.setString(1, NM);
+            PpdSt_1.setString(2, TI);
+            PpdSt_1.setString(3, SF);
+            PpdSt_1.setString(4, GF);
+                        
+            return (PpdSt_1.executeUpdate() > 0);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Main_Window.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }                
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -269,6 +321,7 @@ public class Main_Window extends javax.swing.JFrame {
     private javax.swing.JTextField name_field;
     private javax.swing.JTextField singer_field;
     private javax.swing.JTable song_Table;
+    private javax.swing.JLabel success_or_not;
     private javax.swing.JTextField timing_field;
     private javax.swing.JButton upload_image_btn;
     // End of variables declaration//GEN-END:variables
