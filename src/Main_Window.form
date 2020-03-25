@@ -47,33 +47,6 @@
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jLabel4" alignment="0" pref="105" max="32767" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" pref="105" max="32767" attributes="0"/>
-                                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel2" alignment="0" pref="105" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="clear_all_btn" alignment="0" pref="77" max="32767" attributes="0"/>
-                                      <Component id="insert_btn" alignment="0" pref="77" max="32767" attributes="0"/>
-                                      <Component id="delete_btn" alignment="0" pref="77" max="32767" attributes="0"/>
-                                      <Component id="change_btn" alignment="0" pref="77" max="32767" attributes="0"/>
-                                      <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="label_image" max="32767" attributes="0"/>
-                                      <Component id="upload_image_btn" pref="126" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="452" max="-2" attributes="0"/>
-                          <EmptySpace pref="16" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="timing_field" min="-2" pref="114" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
@@ -82,12 +55,51 @@
                                   <Component id="name_field" min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                               <Component id="singer_field" alignment="1" min="-2" pref="114" max="-2" attributes="0"/>
-                              <Component id="genre_field" alignment="1" min="-2" pref="114" max="-2" attributes="0"/>
+                              <Component id="id_field" alignment="1" min="-2" pref="114" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="success_or_not" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="jLabel4" alignment="0" pref="105" max="32767" attributes="0"/>
+                                          <Component id="jLabel3" alignment="0" pref="105" max="32767" attributes="0"/>
+                                          <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jLabel2" alignment="0" pref="105" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="clear_all_btn" alignment="0" pref="77" max="32767" attributes="0"/>
+                                              <Component id="insert_btn" alignment="0" pref="77" max="32767" attributes="0"/>
+                                              <Component id="delete_btn" alignment="0" pref="77" max="32767" attributes="0"/>
+                                              <Component id="change_btn" alignment="0" pref="77" max="32767" attributes="0"/>
+                                              <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="label_image" max="32767" attributes="0"/>
+                                              <Component id="upload_image_btn" pref="126" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane2" min="-2" pref="452" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="20" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+                      <Component id="genre_field1" min="-2" pref="114" max="-2" attributes="0"/>
+                      <EmptySpace pref="489" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -95,7 +107,12 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="id_field" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="name_field" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -116,10 +133,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" pref="23" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel3" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="genre_field" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel3" min="-2" pref="23" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="upload_image_btn" min="-2" max="-2" attributes="0"/>
@@ -141,7 +155,14 @@
                       </Group>
                       <Component id="jScrollPane2" min="-2" pref="248" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
+                      <Component id="genre_field1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="184" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -171,7 +192,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="timing_field">
         </Component>
-        <Component class="javax.swing.JTextField" name="genre_field">
+        <Component class="javax.swing.JTextField" name="id_field">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -252,11 +273,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Insert"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insert_btnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="delete_btn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Delete"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="delete_btnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="change_btn">
           <Properties>
@@ -282,6 +309,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="jLabel6"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel6">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="ID:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="genre_field1">
         </Component>
       </SubComponents>
     </Container>
