@@ -297,7 +297,26 @@ public class Main_Window extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Type a valid ID!");
         }
     }//GEN-LAST:event_delete_btnActionPerformed
-                                             
+             
+    //Filling the JTable   
+    public void filling_products_into_the_Table(){
+        ArrayList<Products_Class> a_list = getProducts();
+        DefaultTableModel DTM = (DefaultTableModel) song_Table.getModel();
+        
+        //Clears the content of the table
+        DTM.setRowCount(0);
+        
+        Object[] row = new Object[4];
+        
+        for(int i=0; i<a_list.size(); i++){
+            row[0] = a_list.get(i).get_id();
+            row[1] = a_list.get(i).get_product_Name();
+            row[2] = a_list.get(i).get_product_Price();
+            row[3] = a_list.get(i).get_Date();
+            
+            DTM.addRow(row);
+        }
+    }
 
     private boolean AddingInfoIntoDB(String NM, String TI, String SF, String GF)
     {       
