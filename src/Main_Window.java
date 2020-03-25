@@ -2,12 +2,15 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -286,7 +289,7 @@ public class Main_Window extends javax.swing.JFrame {
                 PpdSt.setInt(1, id);
                 PpdSt.executeUpdate();
                 
-               // filling_products_into_the_Table();
+                filling_song_into_the_Table();
                 
                 JOptionPane.showMessageDialog(null, "Product has been deleted successfully");
             } catch (SQLException ex) {
@@ -299,22 +302,30 @@ public class Main_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_delete_btnActionPerformed
              
     //Filling the JTable   
-    public void filling_products_into_the_Table(){
-        ArrayList<Products_Class> a_list = getProducts();
-        DefaultTableModel DTM = (DefaultTableModel) song_Table.getModel();
-        
-        //Clears the content of the table
-        DTM.setRowCount(0);
-        
-        Object[] row = new Object[4];
-        
-        for(int i=0; i<a_list.size(); i++){
-            row[0] = a_list.get(i).get_id();
-            row[1] = a_list.get(i).get_product_Name();
-            row[2] = a_list.get(i).get_product_Price();
-            row[3] = a_list.get(i).get_Date();
+    public void filling_song_into_the_Table(){
+        String slctQry_1 = "SELECT `id`,`name`,`timing`,`singer`,`year`,`genre` FROM `songs`";
+        try {
+            Connection connection = get_Connection();
             
-            DTM.addRow(row);
+            PreparedStatement PrepaSt_1 = connection.prepareStatement(slctQry_1);
+            ResultSet ResSet_1 = PrepaSt_1.executeQuery();
+            DefaultTableModel DftTM1 = (DefaultTableModel)song_Table.getModel();
+            Object[] line;
+            while(ResSet_1.next() )
+            {
+                line = new Object[6]; 
+                line[0] = ResSet_1.getInt(1);
+                line[1] = ResSet_1.getInt(2);
+                line[2] = ResSet_1.getInt(3);
+                line[3] = ResSet_1.getString(4);
+                line[4] = ResSet_1.getString(5);
+                line[5] = ResSet_1.getString(6);
+                   
+                
+                DftTM1.addRow(line);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Main_Window.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -400,4 +411,6 @@ public class Main_Window extends javax.swing.JFrame {
     private javax.swing.JTextField timing_field;
     private javax.swing.JButton upload_image_btn;
     // End of variables declaration//GEN-END:variables
+    
+
 }
