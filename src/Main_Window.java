@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,6 +78,7 @@ public class Main_Window extends javax.swing.JFrame {
         success_or_not = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         genre_field1 = new javax.swing.JTextField();
+        dateChooser_Year = new com.toedter.calendar.JYearChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,12 +129,22 @@ public class Main_Window extends javax.swing.JFrame {
         });
 
         change_btn.setText("Change");
+        change_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                change_btnActionPerformed(evt);
+            }
+        });
 
         label_image.setOpaque(true);
 
         upload_image_btn.setText("Upload Image");
 
         jButton1.setText("SEARCH");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         success_or_not.setText("jLabel6");
 
@@ -153,7 +165,8 @@ public class Main_Window extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(name_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(singer_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(id_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(id_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateChooser_Year, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(success_or_not)
                         .addGap(224, 224, 224))
@@ -161,31 +174,33 @@ public class Main_Window extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(clear_all_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                                            .addComponent(insert_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                                            .addComponent(delete_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                                            .addComponent(change_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(20, 20, 20)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(label_image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(upload_image_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))))
-                                .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(clear_all_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                                                    .addComponent(insert_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                                                    .addComponent(delete_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                                                    .addComponent(change_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addGap(20, 20, 20)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(label_image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(upload_image_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))))
+                                        .addGap(18, 18, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(genre_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)))
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6))
                         .addContainerGap(20, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(129, 129, 129)
-                    .addComponent(genre_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(489, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,10 +225,17 @@ public class Main_Window extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(singer_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateChooser_Year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(genre_field1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(upload_image_btn)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -229,12 +251,7 @@ public class Main_Window extends javax.swing.JFrame {
                                 .addComponent(change_btn))
                             .addComponent(label_image, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(157, 157, 157)
-                    .addComponent(genre_field1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(184, Short.MAX_VALUE)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -264,12 +281,16 @@ public class Main_Window extends javax.swing.JFrame {
         String _singer_field = singer_field.getText();
         String _genre_field = id_field.getText();
         
+        // SimpleDateFormat Date_Format = new SimpleDateFormat("yyyy-MM-dd");
+        int dateCame_var = dateChooser_Year.getYear();           
+        String dateCame = Integer.toString(dateCame_var);
+        
         if(name_field.getText().equals("") || timing_field.getText().equals("") || singer_field.getText().equals("") || id_field.getText().equals("") )
         {
             showMessageDialog(null, "Please fill all of the text boxes! ", "Error", ERROR_MESSAGE);
         }else
         {
-            if(AddingInfoIntoDB(_name, _timing, _singer_field, _genre_field)) 
+            if(AddingInfoIntoDB(_name, _timing, _singer_field, dateCame, _genre_field)) 
         {
             success_or_not.setText("Successfully Added");
         }else
@@ -300,6 +321,14 @@ public class Main_Window extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Type a valid ID!");
         }
     }//GEN-LAST:event_delete_btnActionPerformed
+
+    private void change_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_change_btnActionPerformed
+        
+    }//GEN-LAST:event_change_btnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
              
     //Filling the JTable   
     public void filling_song_into_the_Table(){
@@ -329,9 +358,9 @@ public class Main_Window extends javax.swing.JFrame {
         }
     }
 
-    private boolean AddingInfoIntoDB(String NM, String TI, String SF, String GF)
+    private boolean AddingInfoIntoDB(String NM, String TI, String SN, String YR, String GN)
     {       
-        String qry = "INSERT INTO `songs`(`id`, `name`, `timing`, `singer`, `genre`) VALUES (?,?,?,?,?)";
+        String qry = "INSERT INTO `songs`(`id`, `name`, `timing`, `singer`,`year`, `genre`) VALUES (?,?,?,?,?,?)";
         
         try {
             // PreparedStatement PpdSt_1 = get_Connection().prepareStatement(qry);
@@ -340,8 +369,9 @@ public class Main_Window extends javax.swing.JFrame {
             
             PpdSt_1.setString(1, NM);
             PpdSt_1.setString(2, TI);
-            PpdSt_1.setString(3, SF);
-            PpdSt_1.setString(4, GF);
+            PpdSt_1.setString(3, SN);
+            PpdSt_1.setString(4, YR);
+            PpdSt_1.setString(4, GN);
                         
             return (PpdSt_1.executeUpdate() > 0);
             
@@ -390,6 +420,7 @@ public class Main_Window extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton change_btn;
     private javax.swing.JButton clear_all_btn;
+    private com.toedter.calendar.JYearChooser dateChooser_Year;
     private javax.swing.JButton delete_btn;
     private javax.swing.JTextField genre_field1;
     private javax.swing.JTextField id_field;
