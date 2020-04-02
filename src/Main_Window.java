@@ -33,7 +33,7 @@ public class Main_Window extends javax.swing.JFrame {
     
     public Main_Window() {
         initComponents();
-        // filling_song_into_the_Table();
+        filling_song_into_the_Table();
         get_Connection();
     }
     
@@ -89,6 +89,7 @@ public class Main_Window extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         genre_field1 = new javax.swing.JTextField();
         dateChooser_Year = new com.toedter.calendar.JYearChooser();
+        btn_refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,6 +166,13 @@ public class Main_Window extends javax.swing.JFrame {
 
         jLabel6.setText("ID:");
 
+        btn_refresh.setText("REFRESH");
+        btn_refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -213,7 +221,9 @@ public class Main_Window extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(genre_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(27, 27, 27)))
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btn_refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel6))
                         .addContainerGap(20, Short.MAX_VALUE))))
         );
@@ -232,7 +242,8 @@ public class Main_Window extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timing_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(timing_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_refresh))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -364,6 +375,10 @@ public class Main_Window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_upload_imageActionPerformed
 
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
+        filling_song_into_the_Table();
+    }//GEN-LAST:event_btn_refreshActionPerformed
+
     //Resize Image
     public ImageIcon ResizeTheImage(String Image_Directory, byte[] picture){
         ImageIcon myImage = null;
@@ -396,8 +411,8 @@ public class Main_Window extends javax.swing.JFrame {
             {
                 row = new Object[6]; 
                 row[0] = ResSet_1.getInt(1);
-                row[1] = ResSet_1.getInt(2);
-                row[2] = ResSet_1.getInt(3);
+                row[1] = ResSet_1.getString(2);
+                row[2] = ResSet_1.getString(3);
                 row[3] = ResSet_1.getString(4);
                 row[4] = ResSet_1.getString(5);
                 row[5] = ResSet_1.getString(6);
@@ -434,12 +449,12 @@ public class Main_Window extends javax.swing.JFrame {
                 Logger.getLogger(Main_Window.class.getName()).log(Level.SEVERE, null, ex);
             }
                                                                
-            return (PpdSt_1.executeUpdate() > 0);
+            return (PpdSt_1.executeUpdate() > 0);            
             
         } catch (SQLException ex) {
             Logger.getLogger(Main_Window.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }                
+        }        
     }
     
     /**
@@ -479,6 +494,7 @@ public class Main_Window extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_refresh;
     private javax.swing.JButton btn_upload_image;
     private javax.swing.JButton change_btn;
     private javax.swing.JButton clear_all_btn;
