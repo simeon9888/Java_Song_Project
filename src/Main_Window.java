@@ -9,8 +9,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -18,6 +20,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,7 +36,7 @@ public class Main_Window extends javax.swing.JFrame {
     
     public Main_Window() {
         initComponents();
-        filling_song_into_the_Table();
+        filling_song_into_the_Table(song_Table);
         get_Connection();
     }
     
@@ -107,15 +110,17 @@ public class Main_Window extends javax.swing.JFrame {
 
         song_Table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "NAME", "TIMING", "Sing./Group", "YEAR", "Genre"
             }
         ));
+        song_Table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                song_TableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(song_Table);
 
         clear_all_btn.setText("Clear All");
@@ -319,6 +324,7 @@ public class Main_Window extends javax.swing.JFrame {
             if(AddingInfoIntoDB(_name, _timing, _singer_field, dateCame, _genre_field)) 
         {
             success_or_not.setText("Successfully Added");
+            btn_refreshActionPerformed(evt);
         }else
         {
             success_or_not.setText("Something Went Wrong");
@@ -336,7 +342,8 @@ public class Main_Window extends javax.swing.JFrame {
                 PpdSt.setInt(1, id);
                 PpdSt.executeUpdate();
                 
-                filling_song_into_the_Table();
+                // filling_song_into_the_Table(song_Table);
+                btn_refreshActionPerformed(evt);
                 
                 JOptionPane.showMessageDialog(null, "Product has been deleted successfully");
             } catch (SQLException ex) {
@@ -349,7 +356,78 @@ public class Main_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_delete_btnActionPerformed
 
     private void change_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_change_btnActionPerformed
-        
+        if(checkInputFields() && id_field != null){
+            String update_QRY = null;
+            PreparedStatement ppdStm = null;
+            Connection connection = get_Connection();
+            
+            // update when there is no image
+            if(Image_Directory == null){
+                try {
+                    update_QRY = "UPDATE songs SET name=?,timing=?,singer=?,year=?,genre=? WHERE id=?";
+                    
+                    ppdStm = connection.prepareStatement(update_QRY);
+                    
+                    ppdStm.setString(1, name_field.getText());
+                    ppdStm.setString(2, timing_field.getText());
+                    ppdStm.setString(3, singer_field.getText());
+                    
+                    int dateCame_var = dateChooser_Year.getYear();           
+                    String dateCame = Integer.toString(dateCame_var);
+                    ppdStm.setString(4, dateCame);
+                    
+                    ppdStm.setString(5, genre_field1.getText());
+                    
+                    ppdStm.setInt(6, Integer.parseInt(id_field.getText()));
+                    
+                    ppdStm.executeUpdate();
+                    
+                    // filling_products_into_the_Table();
+                    //filling_song_into_the_Table(song_Table);
+                    btn_refreshActionPerformed(evt);
+                    
+                    JOptionPane.showMessageDialog(null, "Successfully Updated! ");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main_Window.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{ //update when there is an image
+                try{
+                InputStream image = new FileInputStream(new File(Image_Directory));
+                
+                update_QRY = "UPDATE songs SET name=?,timing=?,singer=?,year=?,genre=?,image=? WHERE id=?";
+                
+                
+                    ppdStm = connection.prepareStatement(update_QRY);
+                    
+                    ppdStm.setString(1, name_field.getText());
+                    ppdStm.setString(2, timing_field.getText());
+                    ppdStm.setString(3, singer_field.getText());
+                    
+                    int dateCame_var = dateChooser_Year.getYear();           
+                    String dateCame = Integer.toString(dateCame_var);
+                    ppdStm.setString(4, dateCame);
+                    
+                    ppdStm.setString(5, genre_field1.getText());
+                    
+                    ppdStm.setBlob(6, image);
+                    
+                    ppdStm.setInt(7, Integer.parseInt(id_field.getText()));
+                    
+                    ppdStm.executeUpdate();
+                    
+                    // filling_products_into_the_Table();
+                    //filling_song_into_the_Table(song_Table);
+                    btn_refreshActionPerformed(evt);
+                    
+                    JOptionPane.showMessageDialog(null, "Successfully Updated! ");
+                    
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "There is an empty field/fields");
+        }
     }//GEN-LAST:event_change_btnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -376,8 +454,28 @@ public class Main_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_upload_imageActionPerformed
 
     private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
-        filling_song_into_the_Table();
+        song_Table.setModel(new DefaultTableModel(null, new Object[]{"ID", "NAME", "TIMING", "Sing./Group", "YEAR", "Genre"}));
+        filling_song_into_the_Table(song_Table);
     }//GEN-LAST:event_btn_refreshActionPerformed
+
+    private void song_TableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_song_TableMouseClicked
+        DefaultTableModel DfTblMl_1 = (DefaultTableModel)song_Table.getModel(); 
+
+        int selectedLine = song_Table.getSelectedRow(); 
+
+        id_field.setText(DfTblMl_1.getValueAt(selectedLine, 0).toString()); 
+        name_field.setText(DfTblMl_1.getValueAt(selectedLine, 1).toString());        
+        timing_field.setText(DfTblMl_1.getValueAt(selectedLine, 2).toString()); 
+        singer_field.setText(DfTblMl_1.getValueAt(selectedLine, 3).toString()); 
+        
+        //String dateValue = DfTblMl_1.getValueAt(selectedLine, 3).toString();
+        String dateValue1 = DfTblMl_1.getValueAt(selectedLine, 4).toString();        
+        int date= Integer.parseInt(dateValue1);
+        dateChooser_Year.setValue(date);
+        
+        
+        genre_field1.setText(DfTblMl_1.getValueAt(selectedLine, 5).toString());
+    }//GEN-LAST:event_song_TableMouseClicked
 
     //Resize Image
     public ImageIcon ResizeTheImage(String Image_Directory, byte[] picture){
@@ -398,7 +496,7 @@ public class Main_Window extends javax.swing.JFrame {
     
     
     //Filling the JTable   
-    public void filling_song_into_the_Table(){
+    public void filling_song_into_the_Table(JTable song_Table){
         String slctQry_1 = "SELECT `id`,`name`,`timing`,`singer`,`year`,`genre` FROM `songs`";
         try {
             Connection connection = get_Connection();
