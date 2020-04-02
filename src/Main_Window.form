@@ -83,7 +83,7 @@
                                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                       <Component id="label_image" max="32767" attributes="0"/>
-                                                      <Component id="upload_image_btn" pref="126" max="32767" attributes="0"/>
+                                                      <Component id="btn_upload_image" pref="126" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -152,7 +152,7 @@
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="upload_image_btn" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_upload_image" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton1" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -307,10 +307,13 @@
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="upload_image_btn">
+        <Component class="javax.swing.JButton" name="btn_upload_image">
           <Properties>
             <Property name="text" type="java.lang.String" value="Upload Image"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_upload_imageActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>

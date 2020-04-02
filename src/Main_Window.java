@@ -1,4 +1,9 @@
 
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,9 +13,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -25,6 +33,8 @@ public class Main_Window extends javax.swing.JFrame {
     
     public Main_Window() {
         initComponents();
+        // filling_song_into_the_Table();
+        get_Connection();
     }
     
     String Image_Directory = null;
@@ -73,7 +83,7 @@ public class Main_Window extends javax.swing.JFrame {
         delete_btn = new javax.swing.JButton();
         change_btn = new javax.swing.JButton();
         label_image = new javax.swing.JLabel();
-        upload_image_btn = new javax.swing.JButton();
+        btn_upload_image = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         success_or_not = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -137,7 +147,12 @@ public class Main_Window extends javax.swing.JFrame {
 
         label_image.setOpaque(true);
 
-        upload_image_btn.setText("Upload Image");
+        btn_upload_image.setText("Upload Image");
+        btn_upload_image.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_upload_imageActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("SEARCH");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +204,7 @@ public class Main_Window extends javax.swing.JFrame {
                                                 .addGap(20, 20, 20)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addComponent(label_image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(upload_image_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))))
+                                                    .addComponent(btn_upload_image, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))))
                                         .addGap(18, 18, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,7 +252,7 @@ public class Main_Window extends javax.swing.JFrame {
                                 .addComponent(genre_field1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(upload_image_btn)
+                            .addComponent(btn_upload_image)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -329,7 +344,44 @@ public class Main_Window extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-             
+
+    private void btn_upload_imageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_upload_imageActionPerformed
+        JFileChooser file = new JFileChooser();
+        file.setCurrentDirectory(new File(System.getProperty("user.home")));
+        
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.images", "jpg", "png");
+        file.addChoosableFileFilter(filter);
+        int result = file.showSaveDialog(null);
+        
+        if(result == JFileChooser.APPROVE_OPTION){
+            File selectedFile = file.getSelectedFile();
+            String path = selectedFile.getAbsolutePath();
+            label_image.setIcon(ResizeTheImage(path, null));
+            Image_Directory = path;
+        }else{
+            System.out.println("You didn't select any file!");
+            success_or_not.setText("You didn't select any file!");
+        }
+    }//GEN-LAST:event_btn_upload_imageActionPerformed
+
+    //Resize Image
+    public ImageIcon ResizeTheImage(String Image_Directory, byte[] picture){
+        ImageIcon myImage = null;
+        
+        if(Image_Directory != null){
+            myImage = new ImageIcon(Image_Directory);
+        }else{
+            myImage = new ImageIcon(picture);
+        }
+        
+        Image image_1 = myImage.getImage();
+        Image image_2 = image_1.getScaledInstance(label_image.getWidth(), label_image.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(image_2);
+        
+        return image;
+    }
+    
+    
     //Filling the JTable   
     public void filling_song_into_the_Table(){
         String slctQry_1 = "SELECT `id`,`name`,`timing`,`singer`,`year`,`genre` FROM `songs`";
@@ -339,19 +391,19 @@ public class Main_Window extends javax.swing.JFrame {
             PreparedStatement PrepaSt_1 = connection.prepareStatement(slctQry_1);
             ResultSet ResSet_1 = PrepaSt_1.executeQuery();
             DefaultTableModel DftTM1 = (DefaultTableModel)song_Table.getModel();
-            Object[] line;
+            Object[] row;
             while(ResSet_1.next() )
             {
-                line = new Object[6]; 
-                line[0] = ResSet_1.getInt(1);
-                line[1] = ResSet_1.getInt(2);
-                line[2] = ResSet_1.getInt(3);
-                line[3] = ResSet_1.getString(4);
-                line[4] = ResSet_1.getString(5);
-                line[5] = ResSet_1.getString(6);
+                row = new Object[6]; 
+                row[0] = ResSet_1.getInt(1);
+                row[1] = ResSet_1.getInt(2);
+                row[2] = ResSet_1.getInt(3);
+                row[3] = ResSet_1.getString(4);
+                row[4] = ResSet_1.getString(5);
+                row[5] = ResSet_1.getString(6);
                    
                 
-                DftTM1.addRow(line);
+                DftTM1.addRow(row);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Main_Window.class.getName()).log(Level.SEVERE, null, ex);
@@ -360,19 +412,28 @@ public class Main_Window extends javax.swing.JFrame {
 
     private boolean AddingInfoIntoDB(String NM, String TI, String SN, String YR, String GN)
     {       
-        String qry = "INSERT INTO `songs`(`id`, `name`, `timing`, `singer`,`year`, `genre`) VALUES (?,?,?,?,?,?)";
+        String qry = "INSERT INTO `songs`(`name`, `timing`, `singer`,`year`, `genre`, `image`) VALUES (?,?,?,?,?,?)";
         
         try {
             // PreparedStatement PpdSt_1 = get_Connection().prepareStatement(qry);
+            
             Connection connection = get_Connection();
             PreparedStatement PpdSt_1 = connection.prepareStatement(qry);
-            
+            InputStream img_1;
+            try {
             PpdSt_1.setString(1, NM);
             PpdSt_1.setString(2, TI);
             PpdSt_1.setString(3, SN);
             PpdSt_1.setString(4, YR);
-            PpdSt_1.setString(4, GN);
-                        
+            PpdSt_1.setString(5, GN);
+            
+            
+                img_1 = new FileInputStream(new File(Image_Directory));
+                PpdSt_1.setBlob(6, img_1);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Main_Window.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                                                               
             return (PpdSt_1.executeUpdate() > 0);
             
         } catch (SQLException ex) {
@@ -418,6 +479,7 @@ public class Main_Window extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_upload_image;
     private javax.swing.JButton change_btn;
     private javax.swing.JButton clear_all_btn;
     private com.toedter.calendar.JYearChooser dateChooser_Year;
@@ -440,7 +502,6 @@ public class Main_Window extends javax.swing.JFrame {
     private javax.swing.JTable song_Table;
     private javax.swing.JLabel success_or_not;
     private javax.swing.JTextField timing_field;
-    private javax.swing.JButton upload_image_btn;
     // End of variables declaration//GEN-END:variables
     
 
