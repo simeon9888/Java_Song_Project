@@ -586,8 +586,7 @@ public class Main_Window extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+      
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_refresh;
     private javax.swing.JButton btn_upload_image;
@@ -613,6 +612,5 @@ public class Main_Window extends javax.swing.JFrame {
     private javax.swing.JLabel success_or_not;
     private javax.swing.JTextField timing_field;
     // End of variables declaration//GEN-END:variables
-    
-
+     
 }
