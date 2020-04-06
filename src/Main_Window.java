@@ -39,10 +39,10 @@ public class Main_Window extends javax.swing.JFrame {
         filling_song_into_the_Table(song_Table);
         get_Connection();
     }
-    
+   
     String Image_Directory = null;
     int position = 0;
-    
+   
     public Connection get_Connection(){
         Connection connection = null;
         try {
@@ -64,6 +64,7 @@ public class Main_Window extends javax.swing.JFrame {
             return true;
         }
     }
+   
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -91,7 +92,6 @@ public class Main_Window extends javax.swing.JFrame {
         success_or_not = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         genre_field1 = new javax.swing.JTextField();
-        dateChooser_Year = new com.toedter.calendar.JYearChooser();
         btn_refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -193,8 +193,7 @@ public class Main_Window extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(name_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(singer_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(id_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateChooser_Year, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(id_field, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(success_or_not)
                         .addGap(224, 224, 224))
@@ -256,9 +255,7 @@ public class Main_Window extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(singer_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateChooser_Year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -493,7 +490,7 @@ public class Main_Window extends javax.swing.JFrame {
         
         return image;
     }
-    
+   
     
     //Filling the JTable   
     public void filling_song_into_the_Table(JTable song_Table){
@@ -596,7 +593,6 @@ public class Main_Window extends javax.swing.JFrame {
     private javax.swing.JButton btn_upload_image;
     private javax.swing.JButton change_btn;
     private javax.swing.JButton clear_all_btn;
-    private com.toedter.calendar.JYearChooser dateChooser_Year;
     private javax.swing.JButton delete_btn;
     private javax.swing.JTextField genre_field1;
     private javax.swing.JTextField id_field;
